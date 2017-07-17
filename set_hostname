@@ -1,0 +1,6 @@
+#!/bin/bash
+IPARG1=$(ip r|grep src|awk '{print$NF}'|awk -F'.' '{print $3"."$4}'| awk 'NR==1{print}')
+IPARG2=$(ip r|grep src|awk '{print$NF}'|awk -F'.' '{print $3"."$4}'| awk 'NR==2{print}')
+hostname "AWS_GateWay_${IPARG1}&${IPARG2}"
+sed -i "2c HOSTNAME='AWS_GateWay_${IPARG1}&${IPARG2}'" /etc/sysconfig/network
+rm --"$0"
